@@ -1,0 +1,72 @@
+@startuml
+title SmartQueue - Class Diagram
+
+skinparam classAttributeIconSize 0
+
+' --- Core Users ---
+class User {
+  - id: String
+  - name: String
+  - email: String
+  + login()
+}
+
+class Customer
+class Staff
+class Admin
+
+User <|-- Customer
+User <|-- Staff
+User <|-- Admin
+
+' --- Core Domain Classes ---
+class Service {
+  - serviceId: String
+  - name: String
+}
+
+class Appointment {
+  - appointmentId: String
+  - time: DateTime
+  - status: AppointmentStatus
+}
+
+class Queue {
+  - queueId: String
+}
+
+class QueueEntry {
+  - position: int
+  - status: QueueStatus
+  - joinedAt: DateTime
+}
+
+' --- Enums for Status ---
+enum AppointmentStatus {
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
+
+enum QueueStatus {
+  WAITING
+  CALLED
+  IN_SERVICE
+  COMPLETED
+  NO_SHOW
+  LEFT
+}
+
+' --- Relationships ---
+Customer "1" -- "0..*" Appointment : books >
+Service  "1" -- "0..*" Appointment : for >
+
+Service  "1" -- "1" Queue : has >
+Queue    "1" *-- "0..*" QueueEntry : contains >
+
+Customer "1" -- "0..*" QueueEntry : joins >
+
+Staff "0..*" -- "0..*" Service : serves >
+
+@enduml

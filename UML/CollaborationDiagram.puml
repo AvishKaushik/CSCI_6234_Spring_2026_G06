@@ -1,0 +1,17 @@
+@startuml
+title SmartQueue - Join Queue (Communication Diagram)
+
+object Customer
+object QueueController
+object QueueService
+object Queue
+object QueueEntry
+
+Customer -> QueueController : 1. joinQueue(serviceId)
+QueueController -> QueueService : 2. addToQueue(customerId, serviceId)
+QueueService -> Queue : 3. createEntry(customerId)
+Queue -> QueueEntry : 4. setStatus(WAITING)
+QueueService -> QueueController : 5. returnPosition()
+QueueController -> Customer : 6. showConfirmation(position)
+
+@enduml

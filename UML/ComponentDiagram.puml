@@ -1,0 +1,33 @@
+@startuml
+title SmartQueue - Component Diagram
+
+skinparam componentStyle rectangle
+
+component "User Interface" as UI
+
+component "User Management" as UM
+component "Appointment Management" as AM
+component "Queue Management" as QM
+component "Staff Service Module" as SM
+component "Admin Management Module" as ADM
+
+
+database "Database" as DB
+
+' --- UI Connections ---
+UI --> UM : login/register
+UI --> AM : appointments
+UI --> QM : join queue
+UI --> SM : serve customers
+UI --> ADM : manage system
+
+
+' --- Database Connections ---
+UM --> DB
+AM --> DB
+QM --> DB
+SM --> DB
+ADM --> DB
+
+
+@enduml

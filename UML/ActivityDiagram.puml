@@ -1,0 +1,27 @@
+@startuml
+title SmartQueue - Customer Service Flow (Activity)
+
+start
+
+:Customer opens app;
+
+if (Has appointment?) then (Yes)
+  :Check appointment status;
+  :Check in;
+else (No)
+  :Join virtual queue;
+endif
+
+:Wait for turn;
+
+:Staff calls next customer;
+
+if (Customer responds?) then (Yes)
+  :Provide service;
+  :Complete service;
+else (No)
+  :Mark no-show;
+endif
+
+stop
+@enduml

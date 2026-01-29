@@ -1,0 +1,19 @@
+@startuml
+title SmartQueue - QueueEntry State Diagram
+
+[*] --> WAITING
+
+WAITING --> CALLED : staff calls
+CALLED --> IN_SERVICE : customer arrives
+
+IN_SERVICE --> COMPLETED : service done
+
+WAITING --> LEFT : customer leaves
+WAITING --> NO_SHOW : timeout
+CALLED --> NO_SHOW : no response
+
+COMPLETED --> [*]
+NO_SHOW --> [*]
+LEFT --> [*]
+
+@enduml
