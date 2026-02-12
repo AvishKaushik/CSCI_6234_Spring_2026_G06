@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam style strictuml
+
+actor Staff
+
+boundary "Queue Management Page" as QueueUI
+control "Queue Controller" as QueueController
+entity "Appointment" as AppointmentEntity
+entity "Queue" as QueueEntity
+
+Staff --> QueueUI : callNextCustomer()
+
+QueueUI --> QueueController : requestNextCustomer()
+
+
+QueueController --> AppointmentEntity : getNextAppointment()
+QueueController --> QueueEntity : getNextQueueCustomer()
+
+QueueController --> QueueEntity : updateQueueOrder()
+QueueController --> AppointmentEntity : updateStatus(In Service)
+
+QueueController --> QueueUI : displayCustomerDetails()
+
+@enduml

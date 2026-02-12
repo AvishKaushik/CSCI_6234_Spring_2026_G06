@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+skinparam style strictuml
+
+actor Admin
+
+boundary "Staff Management Page" as StaffUI
+control "Staff Controller" as StaffController
+entity "Staff" as StaffEntity
+
+Admin --> StaffUI : create / update / delete staff
+
+StaffUI --> StaffController : submitStaffChanges()
+
+StaffController --> StaffEntity : createStaff()
+StaffController --> StaffEntity : updateStaff()
+StaffController --> StaffEntity : deleteStaff()
+StaffController --> StaffEntity : retrieveStaffList()
+
+StaffController --> StaffUI : confirmation / updated list
+
+@enduml

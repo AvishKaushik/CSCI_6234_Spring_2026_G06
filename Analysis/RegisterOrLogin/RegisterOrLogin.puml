@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam style strictuml
+
+actor Customer
+actor Admin
+actor Staff
+
+boundary "Login Page" as LoginUI
+control "Authentication Controller" as AuthController
+entity "User" as UserEntity
+
+Customer --> LoginUI
+Admin --> LoginUI
+Staff --> LoginUI
+
+LoginUI --> AuthController : submitCredentials()
+
+AuthController --> UserEntity : validateUser()
+
+AuthController --> LoginUI : success / error message
+
+@enduml

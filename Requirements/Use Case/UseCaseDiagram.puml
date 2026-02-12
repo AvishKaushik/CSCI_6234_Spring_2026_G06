@@ -36,47 +36,17 @@ rectangle "SmartQueue System" {
     free up time slots.
   end note
   
-  (Check Appointment Status) as UC_CheckAppt
-  note bottom of UC_CheckAppt
-    View appointment details and
-    booking information.
-  end note
-  
   (Join Virtual Queue) as UC_JoinQueue
   note bottom of UC_JoinQueue
     Enter virtual queue for
     walk-in service.
   end note
   
-  (View Queue Position) as UC_ViewPos
-  note bottom of UC_ViewPos
-    Check current queue position
-    and estimated wait time.
-  end note
-  
-  (Leave Queue) as UC_LeaveQueue
-  note bottom of UC_LeaveQueue
-    Exit virtual queue and
-    update positions.
-  end note
-  
   ' --- Staff Use Cases ---
-  (Call Next Customer) as UC_CallNext
+  (Call Next Customer and Complete Service) as UC_CallNext
   note bottom of UC_CallNext
     Summon next customer and
     update queue status.
-  end note
-  
-  (Complete Service) as UC_CompleteService
-  note bottom of UC_CompleteService
-    Mark service as finished
-    and update records.
-  end note
-  
-  (Mark No-Show) as UC_NoShow
-  note bottom of UC_NoShow
-    Handle unresponsive customers
-    and call next in queue.
   end note
   
   ' --- Admin Use Cases ---
@@ -96,38 +66,28 @@ rectangle "SmartQueue System" {
 ' --- Actor Connections ---
 Customer --> UC_Book
 Customer --> UC_Cancel
-Customer --> UC_CheckAppt
 Customer --> UC_JoinQueue
-Customer --> UC_ViewPos
-Customer --> UC_LeaveQueue
 
 Admin --> UC_ManageServices
 Admin --> UC_ManageStaff
 
 Staff --> UC_CallNext
-Staff --> UC_CompleteService
-Staff --> UC_NoShow
 
 ' --- Include Login ---
 UC_Book       ..> UC_Login : <<include>>
 UC_Cancel     ..> UC_Login : <<include>>
-UC_CheckAppt  ..> UC_Login : <<include>>
 UC_JoinQueue  ..> UC_Login : <<include>>
-UC_ViewPos    ..> UC_Login : <<include>>
-UC_LeaveQueue ..> UC_Login : <<include>>
 UC_ManageServices  ..> UC_Login : <<include>>
 UC_ManageStaff     ..> UC_Login : <<include>>
-UC_CompleteService ..> UC_Login : <<include>>
-UC_NoShow ..> UC_Login : <<include>>
 UC_CallNext ..> UC_Login : <<include>>
 
 ' --- Extend ---
-UC_Invalid ..> UC_Login    : <<extend>>
+UC_Invalid ..> UC_Login : <<extend>>
 
 ' ========== ACTOR NOTES ==========
 note left of Customer
   End-user who books appointments,
-  joins queues, and checks status.
+  cancels appointments, and joins queues.
 end note
 
 note left of Admin
@@ -137,7 +97,7 @@ end note
 
 note left of Staff
   Service personnel who manage
-  queue flow and customer service.
+  queue flow.
 end note
 
 @enduml
