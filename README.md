@@ -1,1 +1,1 @@
-# group_6_oop
+# CSCI_6234_Spring_2026_G06
