@@ -1,0 +1,77 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 200
+skinparam ranksep 80
+
+' ---------- CLASSES ----------
+abstract class User {
+  userID : String
+  name : String
+  email : String
+  password : String
+}
+
+class Customer {
+  phoneNumber : String
+  registrationDate : Date
+}
+
+class Staff {
+  staffID : String
+}
+
+class Admin {
+  adminID : String
+}
+
+class Service {
+  serviceID : String
+  serviceName : String
+  description : String
+  duration : Integer
+  isAvailable : Boolean
+}
+
+class Appointment {
+  appointmentID : String
+  date : Date
+  timeSlot : Time
+  status : String
+  createdAt : DateTime
+}
+
+class Queue {
+  queueID : String
+  date : Date
+  status : String
+}
+
+class QueueEntry {
+  entryID : String
+  queueNumber : Integer
+  position : Integer
+  joinedAt : DateTime
+  status : String
+}
+
+' ---------- INHERITANCE ----------
+User <|-- Customer
+User <|-- Staff
+User <|-- Admin
+
+' ---------- ASSOCIATIONS ----------
+Customer  "1"    --  "0..*" Appointment : books
+Service   "1"    --  "0..*" Appointment : for
+Staff     "1" --  "1..*" Appointment : handles
+
+Admin     "1"    --  "0..*" Service     : manages 
+Admin     "1"    --  "0..*" Staff       : manages
+Service   "1"    --  "0..*" Staff       : assignedTo
+
+Queue     "1"    *-- "1..*" QueueEntry  : contains
+Customer  "1"    --  "0..*" QueueEntry  : has
+Service   "1"    --  "0..*" Queue       : has 
+
+@enduml
