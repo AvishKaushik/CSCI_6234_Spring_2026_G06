@@ -1,27 +1,18 @@
 @startuml
-title SmartQueue - Customer Service Flow (Activity)
+skinparam style strictuml
 
-start
+[*] --> WAITING
 
-:Customer opens app;
+WAITING --> CALLED : staff calls
+WAITING --> LEFT : customer leaves
 
-if (Has appointment?) then (Yes)
-  :Check appointment status;
-  :Check in;
-else (No)
-  :Join virtual queue;
-endif
+CALLED --> IN_SERVICE : customer arrives
+CALLED --> NO_SHOW : no response
 
-:Wait for turn;
+IN_SERVICE --> COMPLETED : service done
 
-:Staff calls next customer;
+LEFT --> [*]
+NO_SHOW --> [*]
+COMPLETED --> [*]
 
-if (Customer responds?) then (Yes)
-  :Provide service;
-  :Complete service;
-else (No)
-  :Mark no-show;
-endif
-
-stop
 @enduml

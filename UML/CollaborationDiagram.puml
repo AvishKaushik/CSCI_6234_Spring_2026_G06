@@ -1,17 +1,79 @@
 @startuml
-title SmartQueue - Join Queue (Communication Diagram)
 
-object Customer
-object QueueController
-object QueueService
-object Queue
-object QueueEntry
+actor Customer
+actor Staff
+actor Admin
 
-Customer -> QueueController : 1. joinQueue(serviceId)
-QueueController -> QueueService : 2. addToQueue(customerId, serviceId)
-QueueService -> Queue : 3. createEntry(customerId)
-Queue -> QueueEntry : 4. setStatus(WAITING)
-QueueService -> QueueController : 5. returnPosition()
-QueueController -> Customer : 6. showConfirmation(position)
+participant LoginUI
+participant BookingUI
+participant CancelUI
+participant VirtualQueueUI
+participant StaffQueueUI
+participant ServiceMgmtUI
+participant StaffMgmtUI
+
+participant AuthController
+participant AppointmentController
+participant QueueController
+participant ServiceController
+participant StaffController
+
+participant User
+participant Service
+participant Appointment
+participant Queue
+participant QueueEntry
+participant StaffEntity
+
+' ---------------- LOGIN (all roles) ----------------
+Customer -> LoginUI : 1. enterCredentials()
+Staff -> LoginUI : 1. enterCredentials()
+Admin -> LoginUI : 1. enterCredentials()
+LoginUI -> AuthController : 2. submitCredentials(email,password)
+AuthController -> User : 3. validateUser(email,password)
+AuthController -> LoginUI : 4. success(role) / error()
+
+' ---------------- BOOK APPOINTMENT (customer) ----------------
+Customer -> BookingUI : 5. selectServiceDateTime()
+BookingUI -> AppointmentController : 6. submitBooking(serviceId,date,time)
+AppointmentController -> Service : 7. checkAvailability(serviceId,date,time)
+AppointmentController -> Appointment : 8. createAppointment(customerId,serviceId,date,time)
+AppointmentController -> BookingUI : 9. showConfirmation() / showError()
+
+' ---------------- JOIN VIRTUAL QUEUE (customer) ----------------
+Customer -> VirtualQueueUI : 10. joinQueue(serviceId)
+VirtualQueueUI -> QueueController : 11. requestJoin(customerId,serviceId)
+QueueController -> Queue : 12. getOrCreateQueue(serviceId,date)
+QueueController -> QueueEntry : 13. createEntry(customerId)
+QueueController -> Queue : 14. addEntry(queueId,entryId)
+QueueController -> Queue : 15. updateQueuePositions()
+QueueController -> VirtualQueueUI : 16. displayQueueNumber(queueNumber,position)
+
+' ---------------- CALL NEXT CUSTOMER (staff) ----------------
+Staff -> StaffQueueUI : 17. callNextCustomer()
+StaffQueueUI -> QueueController : 18. requestNextCustomer(staffId,serviceId)
+QueueController -> Queue : 19. getNextEntry(serviceId)
+QueueController -> QueueEntry : 20. updateEntryStatus(InService)
+QueueController -> Appointment : 21. updateStatus(InService) [if appointment exists]
+QueueController -> StaffQueueUI : 22. displayCustomerDetails()
+
+' ---------------- CANCEL APPOINTMENT (customer) ----------------
+Customer -> CancelUI : 23. selectAppointmentToCancel()
+CancelUI -> AppointmentController : 24. requestCancellation(appointmentId)
+AppointmentController -> Appointment : 25. findAppointment(appointmentId)
+AppointmentController -> Appointment : 26. updateStatus(cancelled)
+AppointmentController -> CancelUI : 27. showCancellationConfirmation() / showError()
+
+' ---------------- MANAGE SERVICES (admin) ----------------
+Admin -> ServiceMgmtUI : 28. create/update/delete service
+ServiceMgmtUI -> ServiceController : 29. submitServiceChanges()
+ServiceController -> Service : 30. createService()/updateService()/deleteService()/retrieveServices()
+ServiceController -> ServiceMgmtUI : 31. confirmation / updatedList
+
+' ---------------- MANAGE STAFF (admin) ----------------
+Admin -> StaffMgmtUI : 32. create/update/delete staff
+StaffMgmtUI -> StaffController : 33. submitStaffChanges()
+StaffController -> StaffEntity : 34. createStaff()/updateStaff()/deleteStaff()/retrieveStaffList()
+StaffController -> StaffMgmtUI : 35. confirmation / updatedList
 
 @enduml
