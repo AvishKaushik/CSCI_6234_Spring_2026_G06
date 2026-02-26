@@ -1,0 +1,35 @@
+@startuml
+title U7 - Call Next Customer & Complete Service
+
+start
+
+:Staff selects "Call Next Customer";
+:System retrieves next customer (appointment/queue);
+
+if (Customer available?) then (Yes)
+  :Display customer details;
+  :Update status to "In Service";
+  :Perform service;
+  :Staff selects "Complete Service";
+  :Remove customer from active queue (if any);
+else (No)
+  :Show "No customer available" message;
+endif
+
+stop
+
+note right
+Activity Description:
+
+1. Staff chooses the option to call the next customer.
+2. System gets the next customer from the appointment list or virtual queue.
+3. System checks if there is an available customer to serve.
+4. If available, system displays the customer’s details to staff.
+5. System updates the customer/service status to "In Service".
+6. Staff provides the service.
+7. System updates the status to "Completed".
+8. System removes the customer from the active queue if they came from the queue.
+9. If no customer is available, system shows a message indicating none are waiting.
+end note
+
+@enduml

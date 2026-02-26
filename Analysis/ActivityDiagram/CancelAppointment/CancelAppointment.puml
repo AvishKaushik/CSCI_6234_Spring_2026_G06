@@ -1,0 +1,29 @@
+@startuml
+title UC3 - Cancel Appointment
+
+start
+
+:1. Select appointment to cancel;
+:2. Submit cancellation request;
+
+if (3. Appointment found & cancellable?) then (Yes)
+  :4. Update status to Cancelled;
+  :5. Show cancellation confirmation;
+else (No)
+  :6. Show cancellation error message;
+endif
+
+stop
+
+note right
+Activity Description:
+
+1. Customer selects the appointment they want to cancel.
+2. Customer submits the cancellation request.
+3. System checks that the appointment exists and can be cancelled.
+4. If valid, the system marks the appointment as Cancelled.
+5. System shows a confirmation message.
+6. If invalid, the system shows an error message.
+end note
+
+@enduml

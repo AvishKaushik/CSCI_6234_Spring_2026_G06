@@ -1,0 +1,42 @@
+@startuml
+title UC6 - Manage Staff Accounts
+
+start
+
+:Select Manage Staff Accounts;
+:Choose create / update / delete;
+
+if (Select operation?) then (Create)
+  :Enter staff details;
+  :Create staff account;
+else (not Create)
+  if (Update?) then (Update)
+    :Select staff account;
+    :Modify staff details/permissions;
+    :Save updated staff account;
+  else (Delete)
+    :Select staff account to delete;
+    :Remove staff account;
+  endif
+endif
+
+:Display updated staff list;
+
+stop
+
+note right
+  Activity Description:
+  1. Admin selects the Manage Staff Accounts option.
+  2. Admin chooses to create, update, or delete a staff account.
+  3. System evaluates which operation was selected.
+  4. If Create is selected, admin enters the staff details.
+  5. System creates the new staff account.
+  6. If Update is selected, admin selects an existing staff account.
+  7. Admin modifies staff details and/or permissions.
+  8. System saves the updated staff account.
+  9. If Delete is selected, admin selects a staff account to delete.
+  10. System removes the selected staff account.
+  11. System displays the updated list of staff accounts.
+end note
+
+@enduml

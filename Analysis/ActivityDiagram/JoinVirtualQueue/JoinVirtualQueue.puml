@@ -1,0 +1,31 @@
+@startuml
+title UC4 - Join Virtual Queue
+
+start
+
+:Select service to join queue;
+:Submit join queue request;
+
+if (Is queue available?) then (Yes)
+  :Create queue entry;
+  :Assign queue number & position;
+  :Display queue number and position;
+else (No)
+  :Show queue unavailable message;
+endif
+
+stop
+
+note right
+Activity Description:
+
+1. Customer selects the service to join the virtual queue.
+2. Customer submits a request to join the queue.
+3. System checks whether the queue is available.
+4. If available, the system creates a queue entry.
+5. System assigns a queue number and position.
+6. System displays the queue number and current position.
+7. If the queue is unavailable, the system shows an error message.
+end note
+
+@enduml

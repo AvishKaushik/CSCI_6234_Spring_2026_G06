@@ -1,0 +1,46 @@
+@startuml
+title UC - Register / Login
+
+start
+
+:1. Open login/register page;
+:2. Enter email and password;
+
+if (3. Select Register?) then (Yes - Customer)
+  :4. Enter registration details;
+  :5. Submit registration form;
+  :6. System creates customer account;
+  :7. Show registration confirmation;
+
+else (No - Login)
+  :8. Submit login request;
+  :9. System validates credentials;
+
+  if (10. Credentials valid?) then (Yes)
+    :11. Display user dashboard;
+  else (No)
+    :12. Display "Email or Password Incorrect";
+  endif
+endif
+
+stop
+
+note right
+Activity Description:
+
+1. User opens the login/register page.
+2. User enters email and password.
+3. User chooses whether to register or log in.
+4. If registering (Customer only), user enters required details.
+5. User submits the registration form.
+6. System creates a new customer account.
+7. System shows registration confirmation.
+8. If logging in, user submits login request.
+9. System validates the credentials.
+10. System checks whether credentials are valid.
+11. If valid, system displays the appropriate dashboard.
+12. If invalid, system displays an error message.
+
+end note
+
+@enduml

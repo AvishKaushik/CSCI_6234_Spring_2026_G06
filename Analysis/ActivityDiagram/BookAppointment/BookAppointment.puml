@@ -1,0 +1,29 @@
+@startuml
+title UC2 - Book Appointment
+
+start
+
+:1. Select service, date, and time;
+:2. Submit booking request;
+
+if (3. Is slot available?) then (Yes)
+  :4. Create appointment;
+  :5. Show confirmation;
+else (No)
+  :6. Show unavailable message;
+endif
+
+stop
+
+note right
+Activity Description:
+
+1. Customer selects service, date, and time.
+2. Customer submits the booking request.
+3. System checks availability of the selected slot.
+4. If available, the system creates the appointment.
+5. System displays booking confirmation.
+6. If not available, system shows an error message.
+end note
+
+@enduml

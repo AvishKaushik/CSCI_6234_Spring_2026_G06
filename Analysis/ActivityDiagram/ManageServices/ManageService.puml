@@ -1,0 +1,40 @@
+@startuml
+title UC5 - Manage Services
+
+start
+
+:1. Select Manage Services;
+:2. Choose create / update / delete;
+
+if (3. Select operation?) then (Create)
+  :4. Enter service details;
+  :5. Save new service;
+else (not Create)
+  if (Update?) then (Update)
+    :6. Modify service details;
+    :7. Save updated service;
+  else (Delete)
+    :8. Select service to delete;
+    :9. Remove service;
+  endif
+endif
+
+:10. Display updated service list;
+
+stop
+
+note right
+  Activity Description:
+  1. Admin selects the Manage Services option.
+  2. Admin chooses to create, update, or delete a service.
+  3. System evaluates which operation was selected.
+  4. If Create is selected, admin enters service details.
+  5. System saves the new service.
+  6. If Update is selected, admin modifies service details.
+  7. System saves the updated service.
+  8. If Delete is selected, admin selects a service to remove.
+  9. System deletes the selected service.
+  10. System displays the updated list of services.
+end note
+
+@enduml
