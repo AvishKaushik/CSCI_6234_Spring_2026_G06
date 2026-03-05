@@ -1,0 +1,20 @@
+@startuml
+skinparam style strictuml
+
+actor Customer
+boundary "Appointment Booking Page" as BookingUI
+control "Appointment Controller" as AppointmentController
+entity "Service" as ServiceEntity
+entity "Appointment" as AppointmentEntity
+
+Customer -> BookingUI : selectService(serviceID, date, timeSlot)
+
+BookingUI -> AppointmentController : submitBooking(customerID, serviceID, date, timeSlot)
+
+AppointmentController -> ServiceEntity : checkAvailability(serviceID, date, timeSlot)
+
+AppointmentController -> AppointmentEntity : createAppointment(customerID, serviceID, date, timeSlot)
+
+AppointmentController -> BookingUI : confirmation(appointmentID) / error(message)
+
+@enduml

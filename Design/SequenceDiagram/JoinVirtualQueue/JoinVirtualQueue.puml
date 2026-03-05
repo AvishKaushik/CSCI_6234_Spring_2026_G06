@@ -1,0 +1,21 @@
+@startuml
+skinparam style strictuml
+
+actor Customer
+boundary "Virtual Queue Page" as QueueUI
+control "Queue Controller" as QueueController
+entity "Queue" as QueueEntity
+
+Customer -> QueueUI : joinQueue(serviceID)
+
+QueueUI -> QueueController : requestJoin(customerID, serviceID)
+
+QueueController -> QueueEntity : getCurrentQueue(serviceID)
+
+QueueController -> QueueEntity : addCustomerToQueue(customerID, serviceID)
+
+QueueController -> QueueEntity : updateQueuePosition(queueID, customerID)
+
+QueueController -> QueueUI : displayQueueNumber(queueNumber)
+
+@enduml

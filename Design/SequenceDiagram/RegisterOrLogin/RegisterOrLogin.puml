@@ -1,0 +1,22 @@
+@startuml
+skinparam style strictuml
+
+actor Customer
+actor Admin
+actor Staff
+
+boundary "Login Page" as LoginUI
+control "Authentication Controller" as AuthController
+entity "User" as UserEntity
+
+Customer -> LoginUI : enterCredentials(email,password)
+Admin -> LoginUI : enterCredentials(email,password)
+Staff -> LoginUI : enterCredentials(email,password)
+
+LoginUI -> AuthController : submitCredentials(email,password)
+
+AuthController -> UserEntity : validateUser(email,password)
+
+AuthController -> LoginUI : success(userRole) / error(message)
+
+@enduml

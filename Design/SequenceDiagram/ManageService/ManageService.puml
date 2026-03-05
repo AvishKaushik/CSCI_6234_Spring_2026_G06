@@ -1,0 +1,23 @@
+@startuml
+skinparam style strictuml
+
+actor Admin
+boundary "Service Management Page" as ServiceUI
+control "Service Controller" as ServiceController
+entity "Service" as ServiceEntity
+
+Admin -> ServiceUI : manageService(serviceData)
+
+ServiceUI -> ServiceController : submitServiceChanges(serviceData)
+
+ServiceController -> ServiceEntity : createService(serviceData)
+
+ServiceController -> ServiceEntity : updateService(serviceID, serviceData)
+
+ServiceController -> ServiceEntity : deleteService(serviceID)
+
+ServiceController -> ServiceEntity : retrieveServices()
+
+ServiceController -> ServiceUI : confirmation(message) / updatedServiceList(services)
+
+@enduml

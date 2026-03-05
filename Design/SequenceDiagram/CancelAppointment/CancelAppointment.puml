@@ -1,0 +1,19 @@
+@startuml
+skinparam style strictuml
+
+actor Customer
+boundary "Appointment Management Page" as CancelUI
+control "Appointment Controller" as AppointmentController
+entity "Appointment" as AppointmentEntity
+
+Customer -> CancelUI : selectAppointment(appointmentID)
+
+CancelUI -> AppointmentController : requestCancellation(appointmentID)
+
+AppointmentController -> AppointmentEntity : findAppointment(appointmentID)
+
+AppointmentController -> AppointmentEntity : updateStatus(appointmentID, "Cancelled")
+
+AppointmentController -> CancelUI : cancellationConfirmation(appointmentID) / error(message)
+
+@enduml

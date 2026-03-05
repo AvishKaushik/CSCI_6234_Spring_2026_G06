@@ -1,0 +1,108 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 200
+skinparam ranksep 80
+
+' =========================
+' ENTITY CLASSES ONLY
+' =========================
+
+abstract class User {
+  userID : String
+  name : String
+  email : String
+  password : String
+
+  +ValidateUser(email : String, password : String) : Boolean
+}
+
+class Customer {
+  phoneNumber : String
+  registrationDate : Date
+}
+
+class Staff {
+  staffID : String
+
+  +createStaff(staffData : String) : Staff
+  +updateStaff(staffID : String, staffData : String) : Staff
+  +deleteStaff(staffID : String) : Boolean
+  +retrieveStaffList() : List<Staff>
+}
+
+class Admin {
+  adminID : String
+}
+
+class Service {
+  serviceID : String
+  serviceName : String
+  description : String
+  duration : Integer
+  isAvailable : Boolean
+
+  +checkAvailability(serviceID : String, date : Date, timeSlot : Time) : Boolean
+  +createService(serviceData : String) : Service
+  +updateService(serviceID : String, serviceData : String) : Service
+  +deleteService(serviceID : String) : Boolean
+  +retrieveServices() : List<Service>
+}
+
+class Appointment {
+  appointmentID : String
+  date : Date
+  timeSlot : Time
+  status : String
+  createdAt : DateTime
+
+  +createAppointment(customerID : String, serviceID : String, date : Date, timeSlot : Time) : Appointment
+  +findAppointment(appointmentID : String) : Appointment
+  +getNextAppointment(serviceID : String) : Appointment
+  +updateStatus(appointmentID : String, status : String) : void
+}
+
+class Queue {
+  queueID : String
+  date : Date
+  status : String
+
+  +getCurrentQueue(serviceID : String) : Integer
+  +addCustomerToQueue(customerID : String, serviceID : String) : Integer
+  +updateQueuePosition(queueID : String, customerID : String) : Integer
+  +getNextQueueCustomer(serviceID : String) : String
+  +updateQueueOrder(queueID : String) : void
+}
+
+class QueueEntry {
+  entryID : String
+  queueNumber : Integer
+  position : Integer
+  joinedAt : DateTime
+  status : String
+}
+
+' =========================
+' INHERITANCE
+' =========================
+User <|-- Customer
+User <|-- Staff
+User <|-- Admin
+
+' =========================
+' ASSOCIATIONS (from your model)
+' =========================
+Customer  "1"    --  "0..*" Appointment : books
+Service   "1"    --  "0..*" Appointment : for
+Staff     "1"    --  "1..*" Appointment : handles
+
+Admin     "1"    --  "0..*" Service     : manages
+Admin     "1"    --  "0..*" Staff       : manages
+Service   "1"    --  "0..*" Staff       : assignedTo
+
+Queue     "1"    *-- "1..*" QueueEntry  : contains
+Customer  "1"    --  "0..*" QueueEntry  : has
+Service   "1"    --  "0..*" Queue       : has
+
+@enduml
