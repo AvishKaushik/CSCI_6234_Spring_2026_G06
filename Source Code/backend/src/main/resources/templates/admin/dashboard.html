@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard – SmartQueue</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div th:replace="~{fragments :: flash}"></div>
+
+<div class="container mt-4">
+  <h2 class="mb-1"><i class="bi bi-shield-lock me-2 text-primary"></i>Admin Dashboard</h2>
+  <p class="text-muted mb-4">System administration and configuration.</p>
+
+  <div class="row g-4">
+    <!-- Manage Services -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm hover-card h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="icon-circle bg-primary-subtle">
+              <i class="bi bi-gear text-primary fs-2"></i>
+            </div>
+            <div>
+              <h5 class="mb-0">Services</h5>
+              <span class="badge bg-primary" th:text="${serviceCount} + ' total'">0 total</span>
+            </div>
+          </div>
+          <p class="text-muted">Create, update, and remove services offered to customers.</p>
+          <a th:href="@{/admin/services}" class="btn btn-primary">
+            <i class="bi bi-gear me-1"></i>Manage Services
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Staff -->
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm hover-card h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="icon-circle bg-success-subtle">
+              <i class="bi bi-people text-success fs-2"></i>
+            </div>
+            <div>
+              <h5 class="mb-0">Staff Accounts</h5>
+              <span class="badge bg-success" th:text="${staffCount} + ' registered'">0 registered</span>
+            </div>
+          </div>
+          <p class="text-muted">Create and manage staff accounts and their access.</p>
+          <a th:href="@{/admin/staff}" class="btn btn-success">
+            <i class="bi bi-people me-1"></i>Manage Staff
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

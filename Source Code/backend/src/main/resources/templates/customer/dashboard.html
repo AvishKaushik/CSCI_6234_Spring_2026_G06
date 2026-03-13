@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard – SmartQueue</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+<div th:replace="~{fragments :: flash}"></div>
+
+<div class="container mt-4">
+  <h2 class="mb-1">Welcome, <span th:text="${customer.name}">Customer</span>!</h2>
+  <p class="text-muted">What would you like to do today?</p>
+
+  <div class="row g-4 mt-2">
+    <!-- Book Appointment -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body text-center p-4">
+          <div class="icon-circle bg-primary-subtle mb-3">
+            <i class="bi bi-calendar-plus text-primary fs-2"></i>
+          </div>
+          <h5 class="card-title">Book Appointment</h5>
+          <p class="card-text text-muted">Schedule a service at a specific date and time.</p>
+          <a th:href="@{/customer/services}" class="btn btn-primary">Browse Services</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Join Virtual Queue -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body text-center p-4">
+          <div class="icon-circle bg-success-subtle mb-3">
+            <i class="bi bi-people text-success fs-2"></i>
+          </div>
+          <h5 class="card-title">Join Virtual Queue</h5>
+          <p class="card-text text-muted">Walk in and join the queue — no appointment needed.</p>
+          <a th:href="@{/customer/queue}" class="btn btn-success">Join Queue</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Appointments -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <div class="card-body text-center p-4">
+          <div class="icon-circle bg-warning-subtle mb-3">
+            <i class="bi bi-calendar-check text-warning fs-2"></i>
+          </div>
+          <h5 class="card-title">My Appointments</h5>
+          <p class="card-text text-muted">View, manage, and cancel your bookings.</p>
+          <a th:href="@{/customer/appointments}" class="btn btn-warning">View Appointments</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div class="row g-3 mt-3">
+    <div class="col-md-4">
+      <div class="card bg-primary text-white border-0">
+        <div class="card-body d-flex align-items-center gap-3">
+          <i class="bi bi-calendar-check fs-1 opacity-75"></i>
+          <div>
+            <div class="fs-4 fw-bold" th:text="${confirmedCount}">0</div>
+            <div class="small opacity-75">Upcoming Appointments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white border-0">
+        <div class="card-body d-flex align-items-center gap-3">
+          <i class="bi bi-people fs-1 opacity-75"></i>
+          <div>
+            <div class="fs-4 fw-bold" th:text="${activeQueues}">0</div>
+            <div class="small opacity-75">Active Queue Entries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-secondary text-white border-0">
+        <div class="card-body d-flex align-items-center gap-3">
+          <i class="bi bi-clock-history fs-1 opacity-75"></i>
+          <div>
+            <div class="fs-4 fw-bold" th:text="${totalCount}">0</div>
+            <div class="small opacity-75">Total Appointments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
