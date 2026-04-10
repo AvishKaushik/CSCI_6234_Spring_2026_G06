@@ -29,40 +29,40 @@ function RootRedirect() {
 
 export default function App() {
   return (
-      <BrowserRouter>
-        <AuthProvider>
-          <Navbar />
-          <div className="container mt-4">
-            <Routes>
-              <Route path="/"         element={<RootRedirect />} />
-              <Route path="/login"    element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <div className="container mt-4">
+          <Routes>
+            <Route path="/"         element={<RootRedirect />} />
+            <Route path="/login"    element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-              <Route path="/customer/dashboard" element={
-                <ProtectedRoute role="CUSTOMER"><CustomerDashboard /></ProtectedRoute>} />
-              <Route path="/customer/services" element={
-                <ProtectedRoute role="CUSTOMER"><ServicesPage /></ProtectedRoute>} />
-              <Route path="/customer/appointments" element={
-                <ProtectedRoute role="CUSTOMER"><AppointmentsPage /></ProtectedRoute>} />
-              <Route path="/customer/queue" element={
-                <ProtectedRoute role="CUSTOMER"><QueuePage /></ProtectedRoute>} />
+            <Route path="/customer/dashboard" element={
+              <ProtectedRoute role="CUSTOMER"><CustomerDashboard /></ProtectedRoute>} />
+            <Route path="/customer/services" element={
+              <ProtectedRoute role="CUSTOMER"><ServicesPage /></ProtectedRoute>} />
+            <Route path="/customer/appointments" element={
+              <ProtectedRoute role="CUSTOMER"><AppointmentsPage /></ProtectedRoute>} />
+            <Route path="/customer/queue" element={
+              <ProtectedRoute role="CUSTOMER"><QueuePage /></ProtectedRoute>} />
 
-              <Route path="/staff/dashboard" element={
-                <ProtectedRoute role="STAFF"><StaffDashboard /></ProtectedRoute>} />
-              <Route path="/staff/queue/:serviceId" element={
-                <ProtectedRoute role="STAFF"><StaffQueuePage /></ProtectedRoute>} />
+            <Route path="/staff/dashboard" element={
+              <ProtectedRoute role="STAFF"><StaffDashboard /></ProtectedRoute>} />
+            <Route path="/staff/queue/:serviceId" element={
+              <ProtectedRoute role="STAFF"><StaffQueuePage /></ProtectedRoute>} />
 
-              <Route path="/admin/dashboard" element={
-                <ProtectedRoute role="ADMIN"><AdminDashboard /></ProtectedRoute>} />
-              <Route path="/admin/services" element={
-                <ProtectedRoute role="ADMIN"><AdminServicesPage /></ProtectedRoute>} />
-              <Route path="/admin/staff" element={
-                <ProtectedRoute role="ADMIN"><AdminStaffPage /></ProtectedRoute>} />
+            <Route path="/admin/dashboard" element={
+              <ProtectedRoute role="ADMIN"><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/services" element={
+              <ProtectedRoute role="ADMIN"><AdminServicesPage /></ProtectedRoute>} />
+            <Route path="/admin/staff" element={
+              <ProtectedRoute role="ADMIN"><AdminStaffPage /></ProtectedRoute>} />
 
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </div>
-        </AuthProvider>
-      </BrowserRouter>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
