@@ -50,7 +50,7 @@ public class SecurityConfig {
             ? List.of("http://localhost:5173", "http://localhost:3000", frontendUrl)
             : List.of("http://localhost:5173", "http://localhost:3000");
         config.setAllowedOrigins(origins);
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -68,7 +68,7 @@ public class SecurityConfig {
                 // Public: login, register, H2 console, errors
                 .requestMatchers(
                     "/api/auth/login", "/api/auth/register",
-                    "/api/auth/logout", "/h2-console/**", "/error"
+                    "/api/auth/logout", "/h2-console/**", "/error", "/health"
                 ).permitAll()
                 // Role-protected API areas
                 .requestMatchers("/api/customer/**").hasRole("CUSTOMER")
